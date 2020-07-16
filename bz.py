@@ -47,21 +47,23 @@ def test():
     w = [-1,-1,-1]
     z = ['p','p','p']
     t = [0,0,0]
+    bc = [0,0,0]
     orig = None
     extra = False
     stop = False
-    i=0
+    i=-1
     while True:
         i+=1
-        if len(s) > 10:
+        if len(s) > 15:
             break
         print("------------------------")
         print("第{}轮".format(i))
-        print("本轮初始资金(没押注)${}".format(bg))
         print("游戏结果{}".format(s))
         print("预测情况{}".format(z))
         print("胜负情况{}".format(w))
         print("投注情况{}".format(t))
+        print("每轮$+-{}".format(bc))
+        print("本轮结束时资金${}".format(bg))
         s.append(random.randint(0,1))
         if f:
             if orig in [(0,0,0), (1,1,1)]:
@@ -86,9 +88,11 @@ def test():
                     w.append(-2)
                     z.append('p')
                     t.append(0)
+                    bc.append(0)
                     w.append(-2)
                     z.append('p')
                     t.append(0)
+                    bc.append(0)
                     f = True
                     continue
                 elif w[-1]==0 and w[-2]==0:
@@ -100,6 +104,7 @@ def test():
                 w.append(1)
                 z.append(y)
                 t.append(bet)
+                bc.append(bet)
             else:
                 if bg >= bet:
                     bg-=bet
@@ -108,11 +113,12 @@ def test():
                 w.append(0)
                 z.append(y)
                 t.append(bet)
+                bc.append(-bet)
         else:
             w.append(-1)
             z.append('p')
             t.append(0)
-
+            bc.append(0)
         if bg>=300 or stop:
             print('----------')
             print(bg)
