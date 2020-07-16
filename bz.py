@@ -54,8 +54,8 @@ def test():
     i=-1
     while True:
         i+=1
-        if len(s) > 15:
-            break
+        #if len(s) > 15:
+        #    break
         print("------------------------")
         print("第{}轮".format(i))
         print("游戏结果{}".format(s))
@@ -65,15 +65,26 @@ def test():
         print("每轮$+-{}".format(bc))
         print("本轮结束时资金${}".format(bg))
         s.append(random.randint(0,1))
-        if f:
-            if orig in [(0,0,0), (1,1,1)]:
-                f = False
-            if orig in [(1,0,1), (0,1,0)]:
-                extra = True
+
 
         #if len(s) < 4:
         #    continue
         a, b, c, x = s[-4], s[-3], s[-2], s[-1]
+        if f:
+            if orig in [(0,0,0), (1,1,1)] and orig==(a,b,c):
+                w.append(-3)
+                z.append('p')
+                t.append(0)
+                bc.append(0)
+                continue
+                
+            if orig in [(1,0,1), (0,1,0)] and (a,b,c) in [(1,0,1), (0,1,0)]:
+                w.append(-3)
+                z.append('p')
+                t.append(0)
+                bc.append(0)
+                continue
+            f=False
         y = check(a,b,c, extra)
         extra = False
         if y >= 0:
@@ -84,11 +95,13 @@ def test():
                 if w[-1]==0 and w[-2]==0 and w[-3]==0:
                     orig = (s[-6], s[-5], s[-4])
                     s.append(random.randint(0,1))
-                    s.append(random.randint(0,1))
-                    w.append(-2)
-                    z.append('p')
-                    t.append(0)
-                    bc.append(0)
+
+                    #s.append(random.randint(0,1))
+                    #w.append(-2)
+                    #z.append('p')
+                    #t.append(0)
+                    #bc.append(0)
+
                     w.append(-2)
                     z.append('p')
                     t.append(0)
@@ -129,7 +142,7 @@ def test():
 
 win = []
 fail = []
-for i in range(1):
+for i in range(1000):
     b, l = test()
     if b >= 300:
         win.append(b)
