@@ -42,18 +42,26 @@ def check(a, b, c, e=False):
 
 def test():
     bg = 100
-    s = []
+    s = [random.randint(0,1),random.randint(0,1),random.randint(0,1)]
     f = False
-    w = []
+    w = [-1,-1,-1]
+    z = ['p','p','p']
+    t = [0,0,0]
     orig = None
     extra = False
     stop = False
+    i=0
     while True:
-        if len(s) > 20:
+        i+=1
+        if len(s) > 10:
             break
-        print("${}".format(bg))
-        print(s)
-        print(w)
+        print("------------------------")
+        print("第{}轮".format(i))
+        print("本轮初始资金(没押注)${}".format(bg))
+        print("游戏结果{}".format(s))
+        print("预测情况{}".format(z))
+        print("胜负情况{}".format(w))
+        print("投注情况{}".format(t))
         s.append(random.randint(0,1))
         if f:
             if orig in [(0,0,0), (1,1,1)]:
@@ -61,8 +69,8 @@ def test():
             if orig in [(1,0,1), (0,1,0)]:
                 extra = True
 
-        if len(s) < 4:
-            continue
+        #if len(s) < 4:
+        #    continue
         a, b, c, x = s[-4], s[-3], s[-2], s[-1]
         y = check(a,b,c, extra)
         extra = False
@@ -76,7 +84,11 @@ def test():
                     s.append(random.randint(0,1))
                     s.append(random.randint(0,1))
                     w.append(-2)
+                    z.append('p')
+                    t.append(0)
                     w.append(-2)
+                    z.append('p')
+                    t.append(0)
                     f = True
                     continue
                 elif w[-1]==0 and w[-2]==0:
@@ -86,14 +98,20 @@ def test():
             if y==s[-1]:
                 bg+=bet
                 w.append(1)
+                z.append(y)
+                t.append(bet)
             else:
                 if bg >= bet:
                     bg-=bet
                 else:
                     stop=True
                 w.append(0)
+                z.append(y)
+                t.append(bet)
         else:
             w.append(-1)
+            z.append('p')
+            t.append(0)
 
         if bg>=300 or stop:
             print('----------')
